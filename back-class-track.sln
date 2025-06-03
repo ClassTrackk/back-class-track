@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "back-class-track", "back-class-track\back-class-track.csproj", "{B1375C07-B656-4D21-91C1-99C47AA5FC28}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B1375C07-B656-4D21-91C1-99C47AA5FC28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1375C07-B656-4D21-91C1-99C47AA5FC28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1375C07-B656-4D21-91C1-99C47AA5FC28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1375C07-B656-4D21-91C1-99C47AA5FC28}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8FABFCF4-1715-41A7-89FC-7BD79F912B78}
+	EndGlobalSection
+EndGlobal

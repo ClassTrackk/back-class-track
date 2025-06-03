@@ -1,0 +1,6 @@
+@back_class_track_HostAddress = http://localhost:5028
+
+GET {{back_class_track_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
