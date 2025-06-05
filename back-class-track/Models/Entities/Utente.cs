@@ -17,16 +17,11 @@ namespace back_class_track.Models.Entities
         [Required]
         public string PasswordHash { get; set; }
         [Required]
-        public Mansione Ruolo { get; set; }
-    }
+        public string Ruolo { get; set; }
 
-    public enum Mansione
-    {
-        None = 0,
-        Studente,
-        Docente,
-        Tutor,
-        Amministratore
-    }
+        public ICollection<Lezione> LezioniComeDocente { get; set; }
+        public ICollection<Presenza> PresenzeComeStudente { get; set; }
+        public ICollection<Iscrizione> Iscrizioni { get; set; }
 
+    }
 }

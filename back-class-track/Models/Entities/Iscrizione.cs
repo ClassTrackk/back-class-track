@@ -8,15 +8,14 @@ namespace back_class_track.Models.Entities
         [Key]
         public int Id { get; set; }
 
-        [ForeignKey("Studente")]
-        public string Name { get; set; }
 
+        [ForeignKey("Studente")]
+        public int StudenteId { get; set; }
         public Utente Studente { get; set; }
 
-        //Chiave esterna -> Tabella Classe
+
         [ForeignKey("Classe")]
         public int ClasseId { get; set; }
-
         public Classe Classe { get; set; }
     }
 }
