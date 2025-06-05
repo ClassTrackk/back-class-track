@@ -6,16 +6,16 @@ namespace back_class_track.Models.Entities
     public class DocenteClasse
     {
         [Key]
-        public int Id { get; set; }
+        public int id { get; set; }
 
 
         [ForeignKey("Docente")]
-        public int DocenteId { get; set; }
-        public Utente Docente { get; set; }
+        public int docenteId { get; set; }
+        public Utente docente { get; set; }
 
 
         [ForeignKey("Classe")]
-        public int ClasseId { get; set; }
-        public Classe Classe { get; set; }
+        public int classeId { get; set; }
+        public Classe classe { get; set; }
     }
 }

@@ -6,16 +6,16 @@ namespace back_class_track.Models.Entities
     public class Iscrizione
     {
         [Key]
-        public int Id { get; set; }
+        public int id { get; set; }
 
 
         [ForeignKey("Studente")]
-        public int StudenteId { get; set; }
-        public Utente Studente { get; set; }
+        public int studenteId { get; set; }
+        public Utente studente { get; set; }
 
 
         [ForeignKey("Classe")]
-        public int ClasseId { get; set; }
-        public Classe Classe { get; set; }
+        public int classeId { get; set; }
+        public Classe classe { get; set; }
     }
 }

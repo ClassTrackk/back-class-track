@@ -6,15 +6,15 @@ namespace back_class_track.Models.Entities
     public class ClasseCorso
     {
         [Key]
-        public int Id { get; set; }
+        public int id { get; set; }
         
         [ForeignKey("Classe")]
-        public int ClasseId { get; set; }
+        public int classeId { get; set; }
 
         [ForeignKey("Corso")]
-        public int CorsoId { get; set; }
+        public int corsoId { get; set; }
 
-        public Classe Classe { get; set; }
-        public Corso Corso { get; set; }
+        public Classe classe { get; set; }
+        public Corso corso { get; set; }
     }
 }

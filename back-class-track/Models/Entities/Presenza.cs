@@ -6,18 +6,18 @@ namespace back_class_track.Models.Entities
     public class Presenza
     {
         [Key]
-        public int Id { get; set; }
+        public int id { get; set; }
 
 
         [ForeignKey("Lezione")]
-        public int LezioneId{ get; set; }
-        public Lezione Lezione { get; set; }
+        public int lezioneId{ get; set; }
+        public Lezione lezione { get; set; }
 
 
         [ForeignKey("Studente")]
-        public int StudenteId { get; set; }
-        public Utente Studente { get; set; }
+        public int studenteId { get; set; }
+        public Utente studente { get; set; }
 
-        public bool Presente { get; set; }
+        public bool presente { get; set; }
     }
 }

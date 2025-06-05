@@ -6,22 +6,22 @@ namespace back_class_track.Models.Entities
     public class Lezione
     {
         [Key]
-        public int Id { get; set; }
-        public DateTime Data { get; set; }
+        public int id { get; set; }
+        public DateTime data { get; set; }
 
 
         [ForeignKey("Classe")]
-        public int ClasseId { get; set; }
-        public Classe Classe { get; set; }
+        public int classeId { get; set; }
+        public Classe classe { get; set; }
 
 
         [ForeignKey("Docente")]
-        public int DocenteId { get; set; }
-        public Utente Docente { get; set; }
+        public int docenteId { get; set; }
+        public Utente docente { get; set; }
 
 
-        public string Argomenti { get; set; }
-        public string Note { get; set; }
+        public string argomenti { get; set; }
+        public string note { get; set; }
 
 
         public ICollection<Presenza> Presenze { get; set; }

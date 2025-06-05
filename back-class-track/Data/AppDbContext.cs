@@ -33,9 +33,9 @@ namespace back_class_track.Data
 
             // Relazione Classe -> Tutor (Utente)
             modelBuilder.Entity<Classe>()
-                .HasOne(c => c.Tutor)
+                .HasOne(c => c.tutor)
                 .WithMany()
-                .HasForeignKey(c => c.TutorId)
+                .HasForeignKey(c => c.tutorId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Relazioni per Iscrizione (Studente -> Classe)
@@ -47,14 +47,14 @@ namespace back_class_track.Data
 
             modelBuilder.Entity<Iscrizione>()
                 .HasOne(i => i.Classe)
-                .WithMany(c => c.Iscrizioni)
+                .WithMany(c => c.iscrizioni)
                 .HasForeignKey(i => i.ClasseId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Relazione ClassiCorsi (many-to-many tra Classi e Corsi)
             modelBuilder.Entity<ClasseCorso>()
                 .HasOne(cc => cc.Classe)
-                .WithMany(c => c.ClassiCorsi)
+                .WithMany(c => c.classiCorsi)
                 .HasForeignKey(cc => cc.ClasseId);
 
             modelBuilder.Entity<ClasseCorso>()
@@ -70,13 +70,13 @@ namespace back_class_track.Data
 
             modelBuilder.Entity<DocenteClasse>()
                 .HasOne(dc => dc.Classe)
-                .WithMany(c => c.DocentiClassi)
+                .WithMany(c => c.docentiClassi)
                 .HasForeignKey(dc => dc.ClasseId);
 
             // Relazioni Lezione
             modelBuilder.Entity<Lezione>()
                 .HasOne(l => l.Classe)
-                .WithMany(c => c.Lezioni)
+                .WithMany(c => c.lezioni)
                 .HasForeignKey(l => l.ClasseId);
 
             modelBuilder.Entity<Lezione>()
