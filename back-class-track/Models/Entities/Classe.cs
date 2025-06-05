@@ -7,17 +7,19 @@ namespace back_class_track.Models.Entities
     {
         [Key]
         public int Id { get; set; }
+
         [Required]
         public string Nome { get; set; }
 
         public int AnnoFormativo { get; set; }
-        
-        //chiave esterna che fa riferimento alla tabella Utenti
+
         [ForeignKey("Tutor")]
         public int TutorId { get; set; }
-
         public Utente Tutor { get; set; }
 
-
+        public ICollection<Iscrizione> Iscrizioni { get; set; }
+        public ICollection<ClasseCorso> ClassiCorsi { get; set; }
+        public ICollection<DocenteClasse> DocentiClassi { get; set; }
+        public ICollection<Lezione> Lezioni { get; set; }
     }
 }
