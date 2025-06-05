@@ -6,20 +6,20 @@ namespace back_class_track.Models.Entities
     public class Utente
     {
         [Key]
-        public int Id { get; set; }
+        public int id { get; set; }
         [Required]
-        public string Nome { get; set; }
+        public string nome { get; set; }
         [Required]
-        public string Cognome { get; set; }
+        public string cognome { get; set; }
         [Required]
         [EmailAddress]
-        public string Email { get; set; }
+        public string email { get; set; }
         [Required]
-        public string PasswordHash { get; set; }
+        public string password { get; set; }
         [Required]
-        public string Ruolo { get; set; }
+        public string ruolo { get; set; }
 
-        public ICollection<Lezione> LezioniComeDocente { get; set; }
+        public ICollection<Lezione> lezioniComeDocente { get; set; }
         public ICollection<Presenza> PresenzeComeStudente { get; set; }
         public ICollection<Iscrizione> Iscrizioni { get; set; }
 

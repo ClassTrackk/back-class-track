@@ -28,7 +28,7 @@ namespace back_class_track.Data
 
             // Unicità Email Utente
             modelBuilder.Entity<Utente>()
-                .HasIndex(u => u.Email)
+                .HasIndex(u => u.email)
                 .IsUnique();
 
             // Relazione Classe -> Tutor (Utente)
@@ -81,7 +81,7 @@ namespace back_class_track.Data
 
             modelBuilder.Entity<Lezione>()
                 .HasOne(l => l.Docente)
-                .WithMany(u => u.LezioniComeDocente)
+                .WithMany(u => u.lezioniComeDocente)
                 .HasForeignKey(l => l.DocenteId);
 
             // Relazioni Presenza
