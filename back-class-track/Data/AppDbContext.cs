@@ -40,64 +40,64 @@ namespace back_class_track.Data
 
             // Relazioni per Iscrizione (Studente -> Classe)
             modelBuilder.Entity<Iscrizione>()
-                .HasOne(i => i.Studente)
+                .HasOne(i => i.studente)
                 .WithMany(u => u.Iscrizioni)
-                .HasForeignKey(i => i.StudenteId)
+                .HasForeignKey(i => i.studenteId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Iscrizione>()
-                .HasOne(i => i.Classe)
+                .HasOne(i => i.classe)
                 .WithMany(c => c.iscrizioni)
-                .HasForeignKey(i => i.ClasseId)
+                .HasForeignKey(i => i.classeId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Relazione ClassiCorsi (many-to-many tra Classi e Corsi)
             modelBuilder.Entity<ClasseCorso>()
-                .HasOne(cc => cc.Classe)
+                .HasOne(cc => cc.classe)
                 .WithMany(c => c.classiCorsi)
-                .HasForeignKey(cc => cc.ClasseId);
+                .HasForeignKey(cc => cc.classeId);
 
             modelBuilder.Entity<ClasseCorso>()
-                .HasOne(cc => cc.Corso)
-                .WithMany(c => c.ClasseCorsi)
-                .HasForeignKey(cc => cc.CorsoId);
+                .HasOne(cc => cc.corso)
+                .WithMany(c => c.classeCorsi)
+                .HasForeignKey(cc => cc.corsoId);
 
             // Relazione DocentiClassi (many-to-many tra Docenti e Classi)
             modelBuilder.Entity<DocenteClasse>()
-                .HasOne(dc => dc.Docente)
+                .HasOne(dc => dc.docente)
                 .WithMany()
-                .HasForeignKey(dc => dc.DocenteId);
+                .HasForeignKey(dc => dc.docenteId);
 
             modelBuilder.Entity<DocenteClasse>()
-                .HasOne(dc => dc.Classe)
+                .HasOne(dc => dc.classe)
                 .WithMany(c => c.docentiClassi)
-                .HasForeignKey(dc => dc.ClasseId);
+                .HasForeignKey(dc => dc.classeId);
 
             // Relazioni Lezione
             modelBuilder.Entity<Lezione>()
-                .HasOne(l => l.Classe)
+                .HasOne(l => l.classe)
                 .WithMany(c => c.lezioni)
-                .HasForeignKey(l => l.ClasseId);
+                .HasForeignKey(l => l.classeId);
 
             modelBuilder.Entity<Lezione>()
-                .HasOne(l => l.Docente)
+                .HasOne(l => l.docente)
                 .WithMany(u => u.lezioniComeDocente)
-                .HasForeignKey(l => l.DocenteId);
+                .HasForeignKey(l => l.docenteId);
 
             // Relazioni Presenza
             modelBuilder.Entity<Presenza>()
-                .HasOne(p => p.Lezione)
+                .HasOne(p => p.lezione)
                 .WithMany(l => l.Presenze)
-                .HasForeignKey(p => p.LezioneId);
+                .HasForeignKey(p => p.lezioneId);
 
             modelBuilder.Entity<Presenza>()
-                .HasOne(p => p.Studente)
+                .HasOne(p => p.studente)
                 .WithMany(u => u.PresenzeComeStudente)
-                .HasForeignKey(p => p.StudenteId);
+                .HasForeignKey(p => p.studenteId);
 
             // Unicità presenza per studente e lezione
             modelBuilder.Entity<Presenza>()
-                .HasIndex(p => new { p.LezioneId, p.StudenteId })
+                .HasIndex(p => new { p.lezioneId, p.studenteId })
                 .IsUnique();
         }
     }
