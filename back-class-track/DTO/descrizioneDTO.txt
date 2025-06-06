@@ -1,0 +1,21 @@
+﻿DTO servono per non esporre intere entità al front end
+
+
+--- INPUT ---
+| Cosa succede quando si riceve dati in input
+1. Il front end invia un DTO (login, register...)
+2. Il controller accetta il DTO come parametro
+3. Lo si usa per cercare o creare un'entità (utente)
+4. Salvo l'enità nel database con EF Core
+
+--- OUTPUT ---
+| Cosa succede quando si restituiscono dati in output
+1. Leggi le entità dal database (_context)
+2. Le trasformiamo in DTO per non esporre tutto
+3. Le inviamo al frontend come risposta
+
+Vantaggi
+- Si controlla meglio cosa si espone
+- Si evitano problemi di sicurezza (es. password)
+- Il codice è più leggibile e manutenibile
+

@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTO\" />
+    <Folder Include="Controllers\LoginControllers\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
