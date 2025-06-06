@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using back_class_track.Data;
-using back_class_track.Models.Entities;
 using back_class_track.DTO.Utenti;
 
 
@@ -22,7 +21,7 @@ namespace back_class_track.Controllers.GestioneUtenti
         //ROUTE PER AVERE TUTTI GLI UTENTI NEL DB
         // GET: api/users
         [HttpGet("")]
-        public async Task<ActionResult<IEnumerable<Utente>>> GetUtenti()
+        public async Task<ActionResult<IEnumerable<UserDTO>>> GetUtenti()
         {
             
             var utenti = await _context.Utenti
@@ -60,6 +59,10 @@ namespace back_class_track.Controllers.GestioneUtenti
 
             return Ok(utente);
         }
+
+
+        //CREO NUOVO UTENTE
+        
     }
 
     #endregion
