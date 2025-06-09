@@ -1,70 +1,100 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using back_class_track.Data;
+using back_class_track.DTO.Corsi;
+using back_class_track.Models; // Assuming your Corso entity is here
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.OpenApi;
-using back_class_track.DTO.Corsi;
-using back_class_track.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace back_class_track.Controllers.GestioneCorso;
 
 public static class CorsoDTOEndpoints
 {
-    public static void MapCorsoDTOEndpoints (this IEndpointRouteBuilder routes)
+    public static void MapCorsoDTOEndpoints(this IEndpointRouteBuilder routes)
     {
-        //Crea un gruppo di endpoints con il prefisso /api/CorsoDTO
+        // Group with prefix /api/corsi
         var group = routes.MapGroup("/api/corsi").WithTags(nameof(CorsoDTO));
 
-        //Rotta principale /api/CorsoDTO/ 
+        // GET /api/corsi
         group.MapGet("/", async (AppDbContext db) =>
         {
-            return await db.CorsoDTO.ToListAsync();
+            return await db.Corsi
+                .Select(c => new CorsoDTO
+                {
+                    id = c.id,
+                    nome = c.nome,
+                    categoriaGenerale = c.categoriaGenerale,
+                    durataOre = c.durataOre
+                }).ToListAsync();
         })
         .WithName("GetAllCorsoDTOs")
         .WithOpenApi();
 
-        //Rotta /api/CorsoDTO/{id}  ottiene un corso specifico
+        // GET /api/corsi/{id}
         group.MapGet("/{id}", async Task<Results<Ok<CorsoDTO>, NotFound>> (int id, AppDbContext db) =>
         {
-            return await db.CorsoDTO.AsNoTracking()
-                .FirstOrDefaultAsync(model => model.id == id)
-                is CorsoDTO model
-                    ? TypedResults.Ok(model)
-                    : TypedResults.NotFound();
+            var corso = await db.Corsi.AsNoTracking()
+                .FirstOrDefaultAsync(c => c.id == id);
+
+            return corso is not null
+                ? TypedResults.Ok(new CorsoDTO
+                {
+                    id = corso.id,
+                    nome = corso.nome,
+                    categoriaGenerale = corso.categoriaGenerale,
+                    durataOre = corso.durataOre
+                })
+                : TypedResults.NotFound();
         })
         .WithName("GetCorsoDTOById")
         .WithOpenApi();
 
-        //Rotta /api/CorsoDTO/{id} aggiorna un corso con specifico ID
+        // PUT /api/corsi/{id}
         group.MapPut("/{id}", async Task<Results<Ok, NotFound>> (int id, CorsoDTO corsoDTO, AppDbContext db) =>
         {
-            var affected = await db.CorsoDTO
-                .Where(model => model.id == id)
-                .ExecuteUpdateAsync(setters => setters
-                    .SetProperty(m => m.id, corsoDTO.id)
-                    .SetProperty(m => m.nome, corsoDTO.nome)
-                    .SetProperty(m => m.categoriaGenerale, corsoDTO.categoriaGenerale)
-                    .SetProperty(m => m.durataOre, corsoDTO.durataOre)
-                    );
-            return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
+            var corso = await db.Corsi.FirstOrDefaultAsync(c => c.id == id);
+
+            if (corso == null)
+                return TypedResults.NotFound();
+
+            corso.nome = corsoDTO.nome;
+            corso.categoriaGenerale = corsoDTO.categoriaGenerale;
+            corso.durataOre = corsoDTO.durataOre;
+
+            await db.SaveChangesAsync();
+            return TypedResults.Ok();
         })
         .WithName("UpdateCorsoDTO")
         .WithOpenApi();
 
-        //Rotta principale crea un corso
-        group.MapPost("/", async (CorsoDTO corsoDTO, AppDbContext db) =>
+        // POST /api/corsi
+        group.MapPost("/", async (CorsoDTO dto, AppDbContext db) =>
         {
-            db.CorsoDTO.Add(corsoDTO);
+            var entity = new Models.Entities.Corso
+            {
+                nome = dto.nome,
+                categoriaGenerale = dto.categoriaGenerale,
+                durataOre = dto.durataOre
+            };
+
+            db.Corsi.Add(entity);
             await db.SaveChangesAsync();
-            return TypedResults.Created($"/api/CorsoDTO/{corsoDTO.id}",corsoDTO);
+
+            dto.id = entity.id; // Set ID for response
+            return TypedResults.Created($"/api/corsi/{dto.id}", dto);
         })
         .WithName("CreateCorsoDTO")
         .WithOpenApi();
 
-        //Con rotta /api/CorsoDTO/{id} elimina un corso
+        // DELETE /api/corsi/{id}
         group.MapDelete("/{id}", async Task<Results<Ok, NotFound>> (int id, AppDbContext db) =>
         {
-            var affected = await db.CorsoDTO
-                .Where(model => model.id == id)
-                .ExecuteDeleteAsync();
-            return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
+            var corso = await db.Corsi.FindAsync(id);
+            if (corso == null)
+                return TypedResults.NotFound();
+
+            db.Corsi.Remove(corso);
+            await db.SaveChangesAsync();
+            return TypedResults.Ok();
         })
         .WithName("DeleteCorsoDTO")
         .WithOpenApi();
