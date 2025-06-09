@@ -1,5 +1,6 @@
 ﻿using back_class_track.Models.Entities;
 using Microsoft.EntityFrameworkCore;
+using back_class_track.DTO.Corsi;
 
 namespace back_class_track.Data
 {
@@ -100,5 +101,6 @@ namespace back_class_track.Data
                 .HasIndex(p => new { p.lezioneId, p.studenteId })
                 .IsUnique();
         }
+        public DbSet<back_class_track.DTO.Corsi.CorsoDTO> CorsoDTO { get; set; } = default!;
     }
 }
