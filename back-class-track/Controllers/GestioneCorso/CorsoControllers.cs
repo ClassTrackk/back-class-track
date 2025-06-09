@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace back_class_track.Controllers.GestioneCorso;
 
-public static class CorsoDTOEndpoints
+public static class CorsoControllers
 {
     public static void MapCorsoDTOEndpoints(this IEndpointRouteBuilder routes)
     {

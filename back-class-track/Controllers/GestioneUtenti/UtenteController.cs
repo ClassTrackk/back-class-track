@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using back_class_track.Data;
 using back_class_track.DTO.Utenti;
+using back_class_track.Models.Entities;
+using back_class_track.DTO.Auth;
 
 
 namespace back_class_track.Controllers.GestioneUtenti
@@ -23,7 +25,6 @@ namespace back_class_track.Controllers.GestioneUtenti
         [HttpGet("")]
         public async Task<ActionResult<IEnumerable<UserDTO>>> GetUtenti()
         {
-            
             var utenti = await _context.Utenti
                 .Select(u => new UserDTO
             {
@@ -62,7 +63,31 @@ namespace back_class_track.Controllers.GestioneUtenti
 
 
         //CREO NUOVO UTENTE
-        
+        public async Task<ActionResult<UserDTO>> PostUtente([FromBody] CreateUtenteDTO dto)
+        {
+            var nuovoUtente = new Utente
+            {
+               nome = dto.nome,
+               password = dto.password,
+               cognome = dto.cognome,
+               email = dto.email,
+               ruolo = dto.ruolo
+            };
+
+            _context.Utenti.Add(nuovoUtente);
+            await _context.SaveChangesAsync();
+
+            var utenteDTO = new UserDTO
+            {
+                id = nuovoUtente.id,
+                nome = nuovoUtente.nome,
+                cognome = nuovoUtente.cognome,
+                email = nuovoUtente.email,
+                ruolo = nuovoUtente.ruolo
+            };
+
+            return CreatedAtAction(nameof(GetUtente), new { id = utenteDTO.id }, utenteDTO);
+        }
     }
 
     #endregion
