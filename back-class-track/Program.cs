@@ -1,6 +1,7 @@
-﻿using back_class_track.Data;
+﻿using back_class_track.Controllers.GestioneCorso;
+using back_class_track.Data;
+using back_class_track.Utilities;
 using Microsoft.EntityFrameworkCore;
-using back_class_track.Controllers.GestioneCorso;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,9 @@ builder.Services.AddControllers();
 //Configurazione database con default connection
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+
 
 builder.Services.AddEndpointsApiExplorer();
 
@@ -29,6 +33,14 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+//CREA FAKE UTENTI
+//if (app.Environment.IsDevelopment())
+//{
+//    using var scope = app.Services.CreateScope();
+//    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+//    await DatabaseSeeder.GenerateFakeUser(context);
+//}
 
 app.MapCorsoDTOEndpoints();
 
