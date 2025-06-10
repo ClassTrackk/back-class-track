@@ -49,25 +49,62 @@ namespace back_class_track.Data
             #endregion
 
             // Relazioni per Iscrizione (Studente -> Classe)
-            #region Relazione Iscrizione
-            modelBuilder.Entity<Iscrizione>()
-                .HasOne(i => i.studente)
-                .WithMany(u => u.Iscrizioni)
-                .HasForeignKey(i => i.studenteId)
-                .OnDelete(DeleteBehavior.Cascade);
+            //#region Relazione Iscrizione
+            //modelBuilder.Entity<Iscrizione>()
+            //    .HasOne(i => i.studente)
+            //    .WithMany(u => u.Iscrizioni)
+            //    .HasForeignKey(i => i.studenteId)
+            //    .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Iscrizione>()
-                .HasOne(i => i.classe)
-                .WithMany(c => c.iscrizioni)
-                .HasForeignKey(i => i.classeId)
-                .OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<Iscrizione>()
+            //    .HasOne(i => i.classe)
+            //    .WithMany(c => c.iscrizioni)
+            //    .HasForeignKey(i => i.classeId)
+            //    .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Iscrizione>()
-                .HasOne(i => i.studente)
-                .WithMany()
-                .HasForeignKey(i => i.studenteId);
+            //modelBuilder.Entity<Iscrizione>()
+            //    .HasOne(i => i.studente)
+            //    .WithMany()
+            //    .HasForeignKey(i => i.studenteId);
 
-            #endregion
+            //#endregion
+
+            modelBuilder.Entity<Iscrizione>(entity =>
+            {
+                entity.ToTable("Iscrizioni");
+
+                entity.Property(e => e.id).HasColumnName("id");
+                entity.Property(e => e.studenteId).HasColumnName("studenteId");
+                entity.Property(e => e.classeId).HasColumnName("classeId");
+
+                entity.HasOne(d => d.studente)
+                    .WithMany()
+                    .HasForeignKey(d => d.studenteId);
+
+                entity.HasOne(d => d.classe)
+                    .WithMany()
+                    .HasForeignKey(d => d.classeId);
+            });
+
+
+            modelBuilder.Entity<Iscrizione>(entity =>
+            {
+                entity.ToTable("Iscrizioni");
+
+                entity.Property(e => e.id).HasColumnName("id");
+                entity.Property(e => e.studenteId).HasColumnName("studenteId");
+                entity.Property(e => e.classeId).HasColumnName("classeId");
+
+                entity.HasOne(d => d.studente)
+                    .WithMany()
+                    .HasForeignKey(d => d.studenteId);
+
+                entity.HasOne(d => d.classe)
+                    .WithMany()
+                    .HasForeignKey(d => d.classeId);
+            });
+
+
 
             // Relazione ClassiCorsi (many-to-many tra Classi e Corsi)
             #region Relazione ClasseCorso
@@ -109,7 +146,6 @@ namespace back_class_track.Data
                 .HasForeignKey(l => l.docenteId);
             #endregion 
 
-            //Relazioni Presenza
             #region Relazioni Presenza
             // Relazioni Presenza
             modelBuilder.Entity<Presenza>()

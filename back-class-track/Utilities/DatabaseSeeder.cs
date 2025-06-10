@@ -18,7 +18,7 @@ namespace back_class_track.Utilities
             //.RuleFor(u => u.ruolo, f => f.PickRandom(new[] { "Studente", "Docente", "Tutor" })); //RUOLO CASUALE
 
             ////QUANTI UTENTI CREARE
-            //var utenti = userFaker.Generate(10);
+            //var utenti = userFaker.Generate(50);
 
             //await context.Utenti.AddRangeAsync(utenti);
 
@@ -88,7 +88,7 @@ namespace back_class_track.Utilities
             //    Console.WriteLine("⚠️ Nessun tutor trovato. Inserisci prima utenti con ruolo 'Tutor'.");
             //    return;
             //}
-            
+
             //var nomiClassi = new[]
             //{
             //    "1A", "1B", "2A", "2B", "3A", "3B", "4A", "4B", "5A", "5B"
@@ -112,6 +112,10 @@ namespace back_class_track.Utilities
             //Console.WriteLine("✅ Classi inserite con successo.");
 
 
+            #endregion
+
+            #region ISCRIZIONI
+            
             #endregion
         }
     }
