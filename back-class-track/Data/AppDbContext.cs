@@ -27,10 +27,15 @@ namespace back_class_track.Data
 
             // Impostazioni per chiavi primarie e relazioni
 
+            modelBuilder.Entity<Utente>()
+                .Property(u => u.id)
+                .ValueGeneratedOnAdd();
+
             // Unicità Email Utente
             modelBuilder.Entity<Utente>()
                 .HasIndex(u => u.email)
-                .IsUnique();
+                .IsUnique();    
+
 
             // Relazione Classe -> Tutor (Utente)
             modelBuilder.Entity<Classe>()
@@ -51,6 +56,12 @@ namespace back_class_track.Data
                 .WithMany(c => c.iscrizioni)
                 .HasForeignKey(i => i.classeId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Iscrizione>()
+                .HasOne(i => i.studente)
+                .WithMany()
+                .HasForeignKey(i => i.studenteId);
+
 
             // Relazione ClassiCorsi (many-to-many tra Classi e Corsi)
             modelBuilder.Entity<ClasseCorso>()
