@@ -35,12 +35,12 @@ app.UseAuthorization();
 app.MapControllers();
 
 //CREA FAKE UTENTI
-//if (app.Environment.IsDevelopment())
-//{
-//    using var scope = app.Services.CreateScope();
-//    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-//    await DatabaseSeeder.GenerateFakeUser(context);
-//}
+if (app.Environment.IsDevelopment())
+{
+    using var scope = app.Services.CreateScope();
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    await DatabaseSeeder.SeedDatabaseAsync(context);
+}
 
 app.MapCorsoDTOEndpoints();
 

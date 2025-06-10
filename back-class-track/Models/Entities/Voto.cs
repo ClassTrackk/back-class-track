@@ -6,7 +6,6 @@ namespace back_class_track.Models.Entities
     public class Voto
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
 
         [Required]

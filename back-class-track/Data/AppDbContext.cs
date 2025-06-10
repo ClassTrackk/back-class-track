@@ -18,6 +18,7 @@ namespace back_class_track.Data
         public DbSet<DocenteClasse> DocentiClassi { get; set; }
         public DbSet<Lezione> Lezioni { get; set; }
         public DbSet<Presenza> Presenze { get; set; }
+        public DbSet<Voto> Voti { get; set; }
 
         #endregion
 
@@ -26,7 +27,7 @@ namespace back_class_track.Data
             base.OnModelCreating(modelBuilder);
 
             // Impostazioni per chiavi primarie e relazioni
-
+            #region Relazione Utenti
             modelBuilder.Entity<Utente>()
                 .Property(u => u.id)
                 .ValueGeneratedOnAdd();
@@ -34,9 +35,10 @@ namespace back_class_track.Data
             // Unicità Email Utente
             modelBuilder.Entity<Utente>()
                 .HasIndex(u => u.email)
-                .IsUnique();    
+                .IsUnique();
+            #endregion
 
-
+            #region Relazione Classe
             // Relazione Classe -> Tutor (Utente)
             modelBuilder.Entity<Classe>()
                 .HasOne(c => c.tutor)
@@ -44,7 +46,10 @@ namespace back_class_track.Data
                 .HasForeignKey(c => c.tutorId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            #endregion
+
             // Relazioni per Iscrizione (Studente -> Classe)
+            #region Relazione Iscrizione
             modelBuilder.Entity<Iscrizione>()
                 .HasOne(i => i.studente)
                 .WithMany(u => u.Iscrizioni)
@@ -62,8 +67,10 @@ namespace back_class_track.Data
                 .WithMany()
                 .HasForeignKey(i => i.studenteId);
 
+            #endregion
 
             // Relazione ClassiCorsi (many-to-many tra Classi e Corsi)
+            #region Relazione ClasseCorso
             modelBuilder.Entity<ClasseCorso>()
                 .HasOne(cc => cc.classe)
                 .WithMany(c => c.classiCorsi)
@@ -74,7 +81,10 @@ namespace back_class_track.Data
                 .WithMany(c => c.classeCorsi)
                 .HasForeignKey(cc => cc.corsoId);
 
+            #endregion
+
             // Relazione DocentiClassi (many-to-many tra Docenti e Classi)
+            #region Relazioni DocenteClasse
             modelBuilder.Entity<DocenteClasse>()
                 .HasOne(dc => dc.docente)
                 .WithMany()
@@ -84,8 +94,10 @@ namespace back_class_track.Data
                 .HasOne(dc => dc.classe)
                 .WithMany(c => c.docentiClassi)
                 .HasForeignKey(dc => dc.classeId);
+            #endregion
 
             // Relazioni Lezione
+            #region Lezione
             modelBuilder.Entity<Lezione>()
                 .HasOne(l => l.classe)
                 .WithMany(c => c.lezioni)
@@ -95,7 +107,10 @@ namespace back_class_track.Data
                 .HasOne(l => l.docente)
                 .WithMany(u => u.lezioniComeDocente)
                 .HasForeignKey(l => l.docenteId);
+            #endregion 
 
+            //Relazioni Presenza
+            #region Relazioni Presenza
             // Relazioni Presenza
             modelBuilder.Entity<Presenza>()
                 .HasOne(p => p.lezione)
@@ -111,6 +126,28 @@ namespace back_class_track.Data
             modelBuilder.Entity<Presenza>()
                 .HasIndex(p => new { p.lezioneId, p.studenteId })
                 .IsUnique();
+            #endregion
+
+            // Relazioni Voto
+            #region Relazioni voto
+
+            modelBuilder.Entity<Voto>()
+                .HasOne(v => v.studente)
+                .WithMany(u => u.Voti)
+                .HasForeignKey(v => v.studenteId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Voto>()
+                .HasOne(v => v.corso)
+                .WithMany()
+                .HasForeignKey(v => v.corsoId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Configura il campo valutazione come decimal(5,2)
+            modelBuilder.Entity<Voto>()
+                .Property(v => v.valutazione)
+                .HasColumnType("decimal(5,2)");
+            #endregion
         }
         public DbSet<back_class_track.DTO.Corsi.CorsoDTO> CorsoDTO { get; set; } = default!;
     }
