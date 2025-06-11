@@ -15,7 +15,7 @@ namespace back_class_track.Utilities
             //.RuleFor(u => u.cognome, f => f.Name.LastName()) //GENERA COGNOME
             //.RuleFor(u => u.email, (f, u) => f.Internet.Email(u.nome, u.cognome)) //EMAIL NOME.COGNOME@EMAIL.COM
             //.RuleFor(u => u.password, f => BCrypt.Net.BCrypt.HashPassword("password123")) //PASSWORD HASHATA
-            //.RuleFor(u => u.ruolo, f => f.PickRandom(new[] { "Studente", "Docente", "Tutor" })); //RUOLO CASUALE
+            //.RuleFor(u => u.ruolo, f => f.PickRandom(new[] { "Studente", //"Tutor", "Docente" })); //RUOLO CASUALE
 
             ////QUANTI UTENTI CREARE
             //var utenti = userFaker.Generate(50);
@@ -114,9 +114,6 @@ namespace back_class_track.Utilities
 
             #endregion
 
-            #region ISCRIZIONI
-            
-            #endregion
         }
     }
 }

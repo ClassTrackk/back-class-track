@@ -69,40 +69,28 @@ namespace back_class_track.Data
 
             //#endregion
 
-            modelBuilder.Entity<Iscrizione>(entity =>
-            {
-                entity.ToTable("Iscrizioni");
-
-                entity.Property(e => e.id).HasColumnName("id");
-                entity.Property(e => e.studenteId).HasColumnName("studenteId");
-                entity.Property(e => e.classeId).HasColumnName("classeId");
-
-                entity.HasOne(d => d.studente)
-                    .WithMany()
-                    .HasForeignKey(d => d.studenteId);
-
-                entity.HasOne(d => d.classe)
-                    .WithMany()
-                    .HasForeignKey(d => d.classeId);
-            });
-
 
             modelBuilder.Entity<Iscrizione>(entity =>
             {
-                entity.ToTable("Iscrizioni");
+                entity.ToTable("iscrizioni");
 
-                entity.Property(e => e.id).HasColumnName("id");
-                entity.Property(e => e.studenteId).HasColumnName("studenteId");
-                entity.Property(e => e.classeId).HasColumnName("classeId");
+                entity.HasKey(i => i.id);
 
-                entity.HasOne(d => d.studente)
+                entity.Property(i => i.id).HasColumnName("id");
+                entity.Property(i => i.studenteId).HasColumnName("studenteid");
+                entity.Property(i => i.classeId).HasColumnName("classeid");
+
+                // Se hai relazioni, configurale esplicitamente
+                entity.HasOne<Utente>()
                     .WithMany()
-                    .HasForeignKey(d => d.studenteId);
+                    .HasForeignKey(i => i.studenteId);
 
-                entity.HasOne(d => d.classe)
+                entity.HasOne<Classe>()
                     .WithMany()
-                    .HasForeignKey(d => d.classeId);
+                    .HasForeignKey(i => i.classeId);
             });
+
+
 
 
 
