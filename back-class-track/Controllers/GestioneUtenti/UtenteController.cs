@@ -64,8 +64,8 @@ namespace back_class_track.Controllers.GestioneUtenti
         }
 
 
-        
 
+        [HttpPost("")]
         public async Task<ActionResult<UserDTO>> PostUtente([FromBody] CreateUtenteDTO dto)
         {
             //VALIDAZIONE INPUT
