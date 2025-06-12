@@ -65,7 +65,7 @@ namespace back_class_track.Controllers.GestioneUtenti
 
 
 
-        [HttpPost("")]
+        [HttpPost("/api/auth/register")]
         public async Task<ActionResult<UserDTO>> PostUtente([FromBody] CreateUtenteDTO dto)
         {
             //VALIDAZIONE INPUT
