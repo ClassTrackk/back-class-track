@@ -2,6 +2,7 @@
 using back_class_track.DTO.Auth;
 using back_class_track.DTO.Utenti;
 using back_class_track.Models.Entities;
+using BCrypt.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,7 +23,31 @@ namespace back_class_track.Controllers.GestioneUtenti
         #region CONTROLLERS PER AMMINISTRATORE
         //ROUTE PER AVERE TUTTI GLI UTENTI NEL DB
         // GET: api/users
-        [HttpGet("")]
+        [HttpPost("/api/auth/login")]
+        public async Task<IActionResult> Login([FromBody] LoginDTO loginDTO)
+        {
+            var user = await _context.Utenti.FirstOrDefaultAsync(u => u.email == loginDTO.email);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            bool isPasswordValid = BCrypt.Net.BCrypt.Verify(loginDTO.password, user.password);
+            if (!isPasswordValid)
+            {
+                return Unauthorized();
+            }
+            return Ok(
+                new
+                {
+                    id = user.id,
+                    nome = user.nome,
+                    cognome = user.cognome,
+                    email = user.email,
+                    ruolo = user.ruolo,
+                }
+                );
+
+        }
         public async Task<ActionResult<IEnumerable<UserDTO>>> GetUtenti()
         {
             var utenti = await _context.Utenti
@@ -38,6 +63,8 @@ namespace back_class_track.Controllers.GestioneUtenti
             return Ok(utenti);
         }
 
+        //Login 
+        [HttpPost()]
         #region ENDPOINTS AMMINISTRATORE
 
         //ROUTE PER AVERE UN SINGOLO UTENTE
