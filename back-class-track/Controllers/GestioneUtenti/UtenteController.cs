@@ -91,7 +91,7 @@ namespace back_class_track.Controllers.GestioneUtenti
         }
 
 
-
+        //Register
         [HttpPost("/api/auth/register")]
         public async Task<ActionResult<UserDTO>> PostUtente([FromBody] CreateUtenteDTO dto)
         {

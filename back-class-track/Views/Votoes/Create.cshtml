@@ -1,0 +1,51 @@
+﻿@model back_class_track.Models.Entities.Voto
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Voto</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="valutazione" class="control-label"></label>
+                <input asp-for="valutazione" class="form-control" />
+                <span asp-validation-for="valutazione" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="dataVerifica" class="control-label"></label>
+                <input asp-for="dataVerifica" class="form-control" />
+                <span asp-validation-for="dataVerifica" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="descrizione" class="control-label"></label>
+                <input asp-for="descrizione" class="form-control" />
+                <span asp-validation-for="descrizione" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="studenteId" class="control-label"></label>
+                <select asp-for="studenteId" class ="form-control" asp-items="ViewBag.studenteId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="corsoId" class="control-label"></label>
+                <select asp-for="corsoId" class ="form-control" asp-items="ViewBag.corsoId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
