@@ -1,8 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using back_class_track.Models.Entities;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace back_class_track.Models.Entities
 {
+    [Table("Presenza")]
     public class Presenza
     {
         [Key]

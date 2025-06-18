@@ -1,6 +1,8 @@
 ﻿using back_class_track.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using back_class_track.DTO.Corsi;
+using back_class_track.DTO.Classi;
+using back_class_track.DTO.Lezioni;
 
 namespace back_class_track.Data
 {
@@ -174,5 +176,7 @@ namespace back_class_track.Data
             #endregion
         }
         public DbSet<back_class_track.DTO.Corsi.CorsoDTO> CorsoDTO { get; set; } = default!;
+        public DbSet<back_class_track.DTO.Classi.ClasseDTO> ClasseDTO { get; set; } = default!;
+        public DbSet<back_class_track.DTO.Lezioni.LezioneDTO> LezioneDTO { get; set; } = default!;
     }
 }

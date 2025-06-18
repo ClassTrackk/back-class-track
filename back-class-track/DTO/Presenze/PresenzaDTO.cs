@@ -5,6 +5,8 @@
         public int id { get; set; }
         public int lezioneId { get; set; }
         public int studenteId { get; set; }
+
+        public string nomeStudente { get; set; }
         public bool presente { get; set; }
     }
 }

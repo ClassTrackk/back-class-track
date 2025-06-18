@@ -17,6 +17,8 @@ namespace back_class_track.Models.Entities
         public int tutorId { get; set; }
         public Utente tutor { get; set; }
 
+        public List<Utente> studenti { get ; set; }
+
         public ICollection<Iscrizione> iscrizioni { get; set; }
         public ICollection<ClasseCorso> classiCorsi { get; set; }
         public ICollection<DocenteClasse> docentiClassi { get; set; }
