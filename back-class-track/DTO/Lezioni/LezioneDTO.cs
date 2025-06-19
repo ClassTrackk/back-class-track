@@ -1,4 +1,6 @@
-﻿namespace back_class_track.DTO.Lezioni
+﻿using back_class_track.DTO.Presenze;
+
+namespace back_class_track.DTO.Lezioni
 {
     public class LezioneDTO
     {
@@ -10,5 +12,7 @@
         public int classeId { get; set; }
 
         public int tutorId { get; set; }
+
+        public bool presente { get; set; }
     }
 }

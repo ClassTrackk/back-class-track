@@ -13,6 +13,7 @@ namespace back_class_track.DTO.Lezioni
         public int tutorId { get; set; }
 
         public List<PresenzaDTO> presenze { get; set; }
+       
     }
 }
 

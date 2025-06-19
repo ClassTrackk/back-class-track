@@ -50,26 +50,26 @@ namespace back_class_track.Data
 
             #endregion
 
-            // Relazioni per Iscrizione (Studente -> Classe)
-            //#region Relazione Iscrizione
-            //modelBuilder.Entity<Iscrizione>()
-            //    .HasOne(i => i.studente)
-            //    .WithMany(u => u.Iscrizioni)
-            //    .HasForeignKey(i => i.studenteId)
-            //    .OnDelete(DeleteBehavior.Cascade);
+            //Relazioni per Iscrizione(Studente->Classe)
+            #region Relazione Iscrizione
+            modelBuilder.Entity<Iscrizione>()
+                .HasOne(i => i.studente)
+                .WithMany(u => u.Iscrizioni)
+                .HasForeignKey(i => i.studenteId)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            //modelBuilder.Entity<Iscrizione>()
-            //    .HasOne(i => i.classe)
-            //    .WithMany(c => c.iscrizioni)
-            //    .HasForeignKey(i => i.classeId)
-            //    .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Iscrizione>()
+                .HasOne(i => i.classe)
+                .WithMany(c => c.iscrizioni)
+                .HasForeignKey(i => i.classeId)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            //modelBuilder.Entity<Iscrizione>()
-            //    .HasOne(i => i.studente)
-            //    .WithMany()
-            //    .HasForeignKey(i => i.studenteId);
+            modelBuilder.Entity<Iscrizione>()
+                .HasOne(i => i.studente)
+                .WithMany()
+                .HasForeignKey(i => i.studenteId);
 
-            //#endregion
+            #endregion
 
 
             modelBuilder.Entity<Iscrizione>(entity =>
@@ -175,8 +175,5 @@ namespace back_class_track.Data
                 .HasColumnType("decimal(5,2)");
             #endregion
         }
-        public DbSet<back_class_track.DTO.Corsi.CorsoDTO> CorsoDTO { get; set; } = default!;
-        public DbSet<back_class_track.DTO.Classi.ClasseDTO> ClasseDTO { get; set; } = default!;
-        public DbSet<back_class_track.DTO.Lezioni.LezioneDTO> LezioneDTO { get; set; } = default!;
     }
 }

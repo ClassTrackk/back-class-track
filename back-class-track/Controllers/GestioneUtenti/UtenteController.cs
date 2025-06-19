@@ -2,6 +2,7 @@
 using back_class_track.DTO.Auth;
 using back_class_track.DTO.Classi;
 using back_class_track.DTO.Corsi;
+using back_class_track.DTO.Lezioni;
 using back_class_track.DTO.Utenti;
 using back_class_track.Models.Entities;
 using BCrypt.Net;
@@ -95,6 +96,42 @@ namespace back_class_track.Controllers.GestioneUtenti
 
             return Ok(utente);
         }
+
+
+        //Registro dello studente 
+        [HttpGet("{id}/registro")]
+        public async Task<ActionResult<UserDTO>>GetUtentePerRegistro(int id)
+        {
+            var utente = await _context.Utenti
+                .Where(u => u.id == id && u.ruolo == "Studente").
+                Select(u => new UserDTO
+                {
+                    id = u.id,
+                    nome = u.nome,
+                    cognome = u.cognome,
+                    email = u.email,
+                    ruolo = u.ruolo, 
+                   lezioniComeStudente = u.PresenzeComeStudente.Select(
+                       p => new LezioneDTO
+                       {
+                           id = p.lezione.id,
+                           data = p.lezione.data,
+                           argomenti = p.lezione.argomenti,
+                           note = p.lezione.note,
+                           docenteId = p.lezione.docenteId,
+                           classeId = p.lezione.classeId,
+                           presente = p.presente
+                       }).ToList(),
+                   
+                }).FirstOrDefaultAsync();
+            if (utente == null) { return NotFound(new {message = " Utente non trovato nel registro" }); }
+
+
+            return Ok(utente);
+
+            
+        }
+
 
         //PUT api/users/{id}
         [HttpPut("{id}")]

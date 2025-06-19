@@ -1,4 +1,6 @@
-﻿namespace back_class_track.DTO.Utenti
+﻿using back_class_track.DTO.Lezioni;
+
+namespace back_class_track.DTO.Utenti
 {
     public class UserDTO
     {
@@ -7,5 +9,7 @@
         public string cognome { get; set; }
         public string email { get; set; }
         public string ruolo { get; set; }
+        public List<LezioneDTO> lezioniComeStudente { get; set; }
+
     }
 }

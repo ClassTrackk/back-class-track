@@ -31,9 +31,9 @@ namespace back_class_track.Controllers
         public async Task<ActionResult<List<LezioneConPresenzeDTO>>> GetLezioniConPresenzePerClasse(int classeId)
         {
             var lezioni = await _context.Lezioni
-                .Where(l => l.classeId == classeId) // <-- ORA È GIUSTO!
+                .Where(l => l.classeId == classeId) 
                 .Include(l => l.Presenze)
-                    .ThenInclude(p => p.studente) // opzionale: se vuoi i dati dello studente
+                    .ThenInclude(p => p.studente) 
                 .OrderBy(l => l.data)
                 .Select(l => new LezioneConPresenzeDTO
                 {
@@ -64,14 +64,31 @@ namespace back_class_track.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ClasseDTO>> GetClasseDTO(int id)
         {
-            var classeDTO = await _context.ClasseDTO.FindAsync(id);
+            var classe = await _context.Classi
+                .Where(c => c.id == id)
+                .Include(c => c.studenti)
+                .Include(c => c.lezioni)
+                .Select(c => new ClasseDTO
+                {
+                    id = c.id,
+                    nome = c.nome,
 
-            if (classeDTO == null)
+                    studenti = c.iscrizioni.Select(uc => new UserDTO
+                    {
+                        id = uc.id,
+                        nome = uc.studente.nome,
+                        cognome = uc.studente.cognome,
+                        email = uc.studente.email
+                    }).ToList(),
+
+                   
+                }).FirstOrDefaultAsync();
+            if(classe == null)
             {
-                return NotFound();
+                return NotFound(new {message = "Classe non trovata" });
             }
 
-            return classeDTO;
+           return Ok(classe);
         }
 
     }

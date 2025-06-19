@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using back_class_track.Data;
 using back_class_track.Models.Entities;
+using back_class_track.DTO.Voti;
 
 namespace back_class_track.Controllers.GestioneVoti
 {
@@ -88,16 +89,30 @@ namespace back_class_track.Controllers.GestioneVoti
 
         // POST: api/voti
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Voto voto)
+        public async Task<ActionResult<VotiDTO>> Create([FromBody] VotiDTO votoDTO)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            var voto = new Voto
+            {
+                valutazione = votoDTO.valutazione,
+                dataVerifica = DateTime.SpecifyKind(votoDTO.dataVerifica, DateTimeKind.Utc),
+                descrizione = votoDTO.descrizione,
+                studenteId = votoDTO.studenteId,
+                corsoId = votoDTO.corsoId
+            };
+
             _context.Voti.Add(voto);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetVotoById), new { votoId = voto.id }, voto);
+            // Popola id ritornato dal database
+            votoDTO.id = voto.id;
+
+            return CreatedAtAction(nameof(GetVotoById), new { votoId = voto.id }, votoDTO);
         }
+
+
 
         // PUT: api/voti/5
         [HttpPut("{votoId}")]

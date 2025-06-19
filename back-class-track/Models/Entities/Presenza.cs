@@ -21,6 +21,9 @@ namespace back_class_track.Models.Entities
         public int studenteId { get; set; }
         public Utente studente { get; set; }
 
+        [ForeignKey("Tutor")]
+        public int tutorId { get; set; }
+        public Utente tutor {get; set; }
         public bool presente { get; set; }
     }
 }

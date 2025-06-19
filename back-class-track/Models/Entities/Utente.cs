@@ -19,7 +19,10 @@ namespace back_class_track.Models.Entities
         [Required]
         public string ruolo { get; set; }
 
+        public List<Lezione> lezioniComeStudente { get; set; }
+
         public List<Lezione> lezioniComeDocente { get; set; }
+        
         public List<Presenza> PresenzeComeStudente { get; set; }
         public List<Iscrizione> Iscrizioni { get; set; }
         public List<Voto> Voti {  get; set; }

@@ -1,4 +1,5 @@
 ﻿using back_class_track.DTO.Corsi;
+using back_class_track.DTO.Presenze;
 using back_class_track.DTO.Utenti;
 
 namespace back_class_track.DTO.Classi
@@ -10,6 +11,9 @@ namespace back_class_track.DTO.Classi
         public List<UserDTO> studenti { get; set; }
 
         public List<CorsoDTO> corsi { get; set; }
+
+        public List<PresenzaDTO> presenza { get; set; }
+        public Iscrizione iscrizioni { get; set; }
 
         public UserDTO docente { get; set; }
         public UserDTO tutor { get; set; }

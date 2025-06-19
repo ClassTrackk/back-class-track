@@ -19,7 +19,7 @@ namespace back_class_track.Controllers.GestioneLezioni
 
         // GET: api/lezioni
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] int? classeId, [FromQuery] int? docenteId, [FromQuery] DateTime? data)
+        public async Task<ActionResult<IEnumerable<LezioneDTO>>> GetAll([FromQuery] int? classeId, [FromQuery] int? docenteId, [FromQuery] DateTime? data)
         {
             var query = _context.Lezioni
                 .Include(l => l.classe)
@@ -42,8 +42,8 @@ namespace back_class_track.Controllers.GestioneLezioni
                     l.data,
                     l.argomenti,
                     l.note,
-                    classe = new { l.classe.id, l.classe.nome },
-                    docente = new { l.docente.id, l.docente.nome, l.docente.cognome }
+                    classe = new { l.classe.id, l.classe.nome, l.classe.studenti },
+                    //docente = new { l.docente.id, l.docente.nome, l.docente.cognome }
                 })
                 .ToListAsync();
 
